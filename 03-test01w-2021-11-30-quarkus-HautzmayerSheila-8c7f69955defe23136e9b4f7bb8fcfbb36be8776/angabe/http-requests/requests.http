@@ -1,0 +1,169 @@
+GET http://localhost:8080/api/survey
+
+###
+
+#http://localhost:8080/api/survey
+#
+#HTTP/1.1 200 OK
+#Content-Type: application/json
+#content-length: 133
+#
+#[
+#  {
+#    "id": 1000,
+#    "question": "Frage A"
+#  },
+#  {
+#    "id": 1050,
+#    "question": "Frage B"
+#  },
+#  {
+#    "id": 1100,
+#    "question": "Frage C"
+#  },
+#  {
+#    "id": 1150,
+#    "question": "Frage D"
+#  }
+#]
+#Response file saved.
+#> 2021-11-29T230019.200.json
+#
+#Response code: 200 (OK); Time: 294ms; Content length: 133 bytes
+
+###
+
+POST http://localhost:8080/api/survey
+Content-Type: application/json
+
+{
+  "question": "Haben ... ?",
+  "answer_options": [
+    {
+      "text": "Antwortmöglichkeit 1"
+    },
+    {
+      "text": "Antwortmöglichkeit 2"
+    },
+    {
+      "text": "Antwortmöglichkeit 3"
+    }
+  ]
+}
+
+> {%
+    client.global.set("survey_url", response.headers.valueOf("Location"));
+%}
+
+###
+#http://localhost:8080/api/survey
+#
+#HTTP/1.1 201 Created
+#Location: http://localhost:8080/api/survey/1151
+#content-length: 0
+#
+#<Response body is empty>
+#
+#
+#
+#Response code: 201 (Created); Time: 693ms; Content length: 0 bytes
+
+### GET http://localhost:8080/api/survey/1151
+
+GET {{survey_url}}
+
+###
+
+#http://{{survey_url}}
+#
+#HTTP/1.1 200 OK
+#Content-Type: application/json
+#content-length: 154
+#
+#{
+#  "id": 1151,
+#  "question": "Haben ... ?",
+#  "answer_options": [
+#    {
+#      "text": "Antwortmöglichkeit 1"
+#    },
+#    {
+#      "text": "Antwortmöglichkeit 2"
+#    },
+#    {
+#      "text": "Antwortmöglichkeit 3"
+#    }
+#  ]
+#}
+#Response file saved.
+#> 2021-11-29T225237.200.json
+#
+#Response code: 200 (OK); Time: 13ms; Content length: 151 bytes
+
+
+###
+
+
+POST http://localhost:8080/api/survey
+Content-Type: application/json
+
+{
+  "question": "Wollen ... ?",
+  "answer_options": [
+    {
+      "text": "Ja"
+    },
+    {
+      "text": "Nein"
+    }
+  ]
+}
+
+> {%
+    client.global.set("survey_url", response.headers.valueOf("Location"));
+%}
+
+###
+
+#HTTP/1.1 201 Created
+#Location: http://localhost:8080/api/survey/1159
+#content-length: 0
+#
+#<Response body is empty>
+#
+#
+#
+#Response code: 201 (Created); Time: 25ms; Content length: 0 bytes
+
+###
+
+GET {{survey_url}}
+
+###
+
+#http://{{survey_url}}
+#
+#HTTP/1.1 200 OK
+#Content-Type: application/json
+#content-length: 86
+#
+#{
+#  "id": 1159,
+#  "question": "Wollen ... ?",
+#  "answer_options": [
+#    {
+#      "text": "Ja"
+#    },
+#    {
+#      "text": "Nein"
+#    }
+#  ]
+#}
+#Response file saved.
+#> 2021-11-29T225518.200.json
+#
+#Response code: 200 (OK); Time: 15ms; Content length: 86 bytes
+
+###
+
+
